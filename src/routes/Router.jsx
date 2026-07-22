@@ -1,25 +1,26 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
-import About from "../pages/About";
-import Contact from "../pages/Contact";
-
+import Listed from "../pages/Listed";
+import PagesToRead from "../pages/PagesToRead";
+import ErrorElement from "../components/ErrorElement/ErrorElement";
 const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
+    errorElement: <ErrorElement></ErrorElement>,
     children: [
       {
         index: true,
         Component: Home,
       },
       {
-        path: "about",
-        Component: About,
+        path: "listed",
+        Component: Listed,
       },
       {
-        path: "contact",
-        Component: Contact,
+        path: "pagestoread",
+        Component: PagesToRead,
       },
     ],
   },
