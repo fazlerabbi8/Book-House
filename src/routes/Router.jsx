@@ -18,6 +18,7 @@ const router = createBrowserRouter([
       {
         path: "listed",
         Component: Listed,
+        loader:() => fetch('/booksData.json')
       },
       {
         path: "pagestoread",
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
       {
         path:"books/:bookId",
         Component:BookDetails,
-        loader:() => fetch('booksData.json')
+        loader:() => fetch('/booksData.json')
       }
     ],
   },

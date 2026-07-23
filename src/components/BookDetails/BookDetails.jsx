@@ -1,11 +1,19 @@
 import { useLoaderData, useParams } from "react-router";
+import { addToStoredList } from "../../utility/add";
+import { toast } from "react-toastify";
 
 const BookDetails = () => {
   const { bookId } = useParams();
   const data = useLoaderData();
 
   const id = parseInt(bookId);
-  const book = data.find((book) => book.bookId === id);
+  const book = data.find((book) => (book.bookId === id));
+
+  const handleMarkAsRead = (id) =>{
+    addToStoredList(id)
+    toast.success("Books added successfully.")
+  }
+
 
   const {
     bookName,
@@ -20,9 +28,9 @@ const BookDetails = () => {
     tags,
   } = book;
   return (
-    <div className="hero bg-base-200 min-h-screen">
+    <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row">
-        <img className="" src={image} />
+        <img className="w-96 rounded-2xl" src={image} />
         <div>
           <h1 className="text-5xl font-bold">{bookName}</h1>
           <p className="py-6">By: {author}</p>
@@ -60,8 +68,8 @@ const BookDetails = () => {
           </div>
 
           <div className="flex gap-6">
-            <button className="btn btn-dash btn-accent">Read</button>
-            <button className="btn btn-dash btn-accent">Wishlist</button>
+            <button onClick={() => handleMarkAsRead(bookId)} className="btn btn-dash btn-accent">Mark as Read</button>
+            <button className="btn btn-dash btn-accent">Add  to Wishlist</button>
           </div>
         </div>
       </div>
