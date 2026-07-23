@@ -7,6 +7,21 @@ import Book from "../components/Book/Book";
 const Listed = () => {
   const [readList, setReadList] = useState([]);
   const [wishList, setWishList] = useState([]);
+  const [sort, setSort] = useState('');
+
+  const handleSort = (sortType) =>{
+    setSort(sortType);
+
+    if(sortType === 'No of pages'){
+      const sortedReadList = [...readList].sort((a,b) =>a.totalPages - b.totalPages);
+      setReadList(sortedReadList);
+    }
+
+    if(sortType === 'Ratings'){
+      const sortedWishList = [...wishList].sort((a,b) => a.rating -b.rating)
+      setWishList(sortedWishList);
+    }
+  }
 
   const allBooks = useLoaderData();
 
@@ -51,11 +66,11 @@ const Listed = () => {
             tabIndex="-1"
             className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
           >
-            <li>
-              <a>Rating</a>
+            <li onClick={() => handleSort("Ratings")}>
+              <a className="text-gray-600">Rating</a>
             </li>
-            <li>
-              <a>Number of pages</a>
+            <li onClick={() => handleSort("No of pages")}>
+              <a className="text-gray-600">Number of pages</a>
             </li>
           </ul>
         </div>
