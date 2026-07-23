@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { getStoredReadList } from "../utility/add";
+import { getStoredReadList, getWishList } from "../utility/add";
 import Book from "../components/Book/Book";
 const Listed = () => {
     const [readList, setReadList] = useState([]);
+    const [wishList, setWishList] = useState([]);
 
     const allBooks = useLoaderData();
 
@@ -19,6 +20,17 @@ const Listed = () => {
        // eslint-disable-next-line react-hooks/set-state-in-effect
        setReadList(readList);
 
+    },[])
+
+    useEffect(() =>{
+        const storedWishList = getWishList();
+
+        const wishListInt = storedWishList.map(id =>parseInt(id));
+
+        const wishList = allBooks.filter(book => wishListInt.includes(book.bookId));
+
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setWishList(wishList);
     },[])
   return (
     <div>
@@ -41,7 +53,15 @@ const Listed = () => {
             </div>
           </TabPanel>
           <TabPanel>
-            <h2>My Wish List</h2>
+            <h2>My Wish List: {wishList.length}</h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
+                {
+                    wishList.map(book => <Book key={book.bookId} book={book}></Book>)
+                }
+            </div>
+
+
           </TabPanel>
         </Tabs>
       </div>

@@ -1,5 +1,5 @@
 import { useLoaderData, useParams } from "react-router";
-import { addToStoredList } from "../../utility/add";
+import { addToStoredList, addToWishList } from "../../utility/add";
 import { toast } from "react-toastify";
 
 const BookDetails = () => {
@@ -11,7 +11,11 @@ const BookDetails = () => {
 
   const handleMarkAsRead = (id) =>{
     addToStoredList(id)
-    toast.success("Books added successfully.")
+    toast.success("Book added successfully.")
+  }
+  const handleWishList = (id) =>{
+    addToWishList(id)
+    toast.success("Book added in wish list successfully.")
   }
 
 
@@ -69,7 +73,7 @@ const BookDetails = () => {
 
           <div className="flex gap-6">
             <button onClick={() => handleMarkAsRead(bookId)} className="btn btn-dash btn-accent">Mark as Read</button>
-            <button className="btn btn-dash btn-accent">Add  to Wishlist</button>
+            <button onClick={() => handleWishList(bookId)} className="btn btn-dash btn-accent">Add  to Wishlist</button>
           </div>
         </div>
       </div>
