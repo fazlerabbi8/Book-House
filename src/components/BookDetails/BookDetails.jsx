@@ -7,17 +7,23 @@ const BookDetails = () => {
   const data = useLoaderData();
 
   const id = parseInt(bookId);
-  const book = data.find((book) => (book.bookId === id));
+  const book = data.find((book) => book.bookId === id);
 
-  const handleMarkAsRead = (id) =>{
-    addToStoredList(id)
-    toast.success("Book added successfully.")
-  }
-  const handleWishList = (id) =>{
-    addToWishList(id)
-    toast.success("Book added in wish list successfully.")
-  }
+  const handleMarkAsRead = (id) => {
+    const added = addToStoredList(id);
+    if (added) {
+      toast.success("Book added successfully.");
+    }
+    return;
+  };
 
+  const handleWishList = (id) => {
+    const added = addToWishList(id);
+    if (added) {
+      toast.success("Book added in wish list successfully.");
+    }
+    return;
+  };
 
   const {
     bookName,
@@ -72,8 +78,18 @@ const BookDetails = () => {
           </div>
 
           <div className="flex gap-6">
-            <button onClick={() => handleMarkAsRead(bookId)} className="btn btn-dash btn-accent">Mark as Read</button>
-            <button onClick={() => handleWishList(bookId)} className="btn btn-dash btn-accent">Add  to Wishlist</button>
+            <button
+              onClick={() => handleMarkAsRead(bookId)}
+              className="btn btn-dash btn-accent"
+            >
+              Mark as Read
+            </button>
+            <button
+              onClick={() => handleWishList(bookId)}
+              className="btn btn-dash btn-accent"
+            >
+              Add to Wishlist
+            </button>
           </div>
         </div>
       </div>
