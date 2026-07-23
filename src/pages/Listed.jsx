@@ -16,9 +16,18 @@ const Listed = () => {
       const sortedReadList = [...readList].sort((a,b) =>a.totalPages - b.totalPages);
       setReadList(sortedReadList);
     }
+    if(sortType === 'Ratings'){
+      const sortedReadList = [...readList].sort((a,b) =>a.rating - b.rating);
+      setReadList(sortedReadList);
+    }
 
     if(sortType === 'Ratings'){
       const sortedWishList = [...wishList].sort((a,b) => a.rating -b.rating)
+      setWishList(sortedWishList);
+    }
+
+    if(sortType === 'No of pages'){
+      const sortedWishList = [...wishList].sort((a,b) =>a.totalPages - b.totalPages);
       setWishList(sortedWishList);
     }
   }
